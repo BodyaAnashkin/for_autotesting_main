@@ -3,16 +3,20 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.Test;
 
-import java.util.List;
 
-public class BuyMonitorInRozetka {
-    WebDriver driver = new ChromeDriver();
+public class SearchGoogle {
+    static WebDriver driver;
 
     @Test
-    public void BuyMonitor() {
-
+    public void buyShampuInRozetkaShampu() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+        System.setProperty("webdriver.http.factory", "jdk-http-client");
         driver.manage().window().maximize();
         //Google Search
         driver.get("https://www.google.com/");
@@ -23,19 +27,6 @@ public class BuyMonitorInRozetka {
         String searchrozetka = ".//h3[@class='LC20lb MBeuO DKV0Md']/..";
         WebElement firstLink = driver.findElement(By.xpath(searchrozetka));
         firstLink.click();
-
-        //Поиск на сайте Розетки
-        String searchFieldXpath = "//input[@name='search']";
-        WebElement FieldSearch = driver.findElement(By.xpath(searchFieldXpath));
-        FieldSearch.sendKeys("монитор", Keys.ENTER);
-
-        String clickSallerRozetka = "//a[@class = 'checkbox-filter__link' and @data-id = 'Rozetka']";
-        WebElement FieldSellerClick = driver.findElement(By.xpath(clickSallerRozetka));
-        FieldSellerClick.click();
-
-        List<WebElement> listOfElementMonitor = driver.findElements(By.className("goods-tile__heading"));
-        WebElement monitorFirst = listOfElementMonitor.get(1);
-        monitorFirst.click();
 
     }
 }

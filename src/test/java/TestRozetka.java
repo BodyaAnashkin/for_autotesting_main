@@ -1,12 +1,10 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import rozetka.HomePage;
-import rozetka.RegisterUserModal;
-import rozetka.SearchRessultPage;
-import rozetka.SignInModal;
+import rozetka.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -19,8 +17,10 @@ public class TestRozetka {
     SearchRessultPage srp;
     SignInModal signInModal;
     RegisterUserModal registerUserModal;
+    ProductPage productPage;
+    private String rozetkaMainPage = "https://rozetka.com.ua/";
 
-    @BeforeTest
+    @BeforeClass
     public void initDriver(){
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
@@ -31,17 +31,19 @@ public class TestRozetka {
     }
 
     @Test
-    public void testRozetkaSearch(){
-        driver.get("https://rozetka.com.ua/");
+    public void testRozetkaSearchMonitor(){
+        driver.get(rozetkaMainPage);
         homePage = new HomePage(driver);
         homePage.setSearchField("Монітор");
         srp = new SearchRessultPage(driver);
         assertThat(srp.getFirstElementTitle(), containsString("Монітор"));
-
+        srp.clickFilterElement("Philips");
+        srp = new SearchRessultPage(driver);
+        srp.clickFistElement();//Тупит немного
     }
     @Test
     public void testRegisterRoz(){
-        driver.get("https://rozetka.com.ua/");
+        driver.get(rozetkaMainPage);
         homePage = new HomePage(driver);
         homePage.clickButtonUser();
         signInModal = new SignInModal(driver);
@@ -53,5 +55,35 @@ public class TestRozetka {
         assertThat(registerUserModal.setErrorMassageText(),
                 equalTo(String.format("Введіть номер мобільного телефону")));
 
+    }
+
+    @Test
+    public void searchShampuRozetka(){
+        driver.get(rozetkaMainPage);
+        homePage = new HomePage(driver);
+        homePage.setSearchField("шампунь");
+        srp = new SearchRessultPage(driver);
+        srp.clickFistElement();
+        productPage = new ProductPage(driver);
+        productPage.clickButtonBuy();
+        productPage.clickButtonCartBuy();
+    }
+
+    @Test
+    public void compareTwoVideoCard(){
+        driver.get(rozetkaMainPage);
+        homePage = new HomePage(driver);
+        homePage.setSearchField("видеокарта");
+        srp = new SearchRessultPage(driver);
+        srp.clickCompareElement(0);
+        srp.clickCompareElement(1);
+        srp.clickCompareButtonModalWindow();
+        srp.clickCompareButtonRedirect();
+    }
+
+
+    @AfterClass
+    public void brauserClose(){
+       // driver.quit();
     }
 }
