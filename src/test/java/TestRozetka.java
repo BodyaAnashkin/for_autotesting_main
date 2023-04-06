@@ -38,6 +38,7 @@ public class TestRozetka {
         srp = new SearchRessultPage(driver);
         assertThat(srp.getFirstElementTitle(), containsString("Монітор"));
         srp.clickFilterElement("Philips");
+        srp.clickFilterElement("60 Гц");
         srp = new SearchRessultPage(driver);
         srp.clickFistElement();//Тупит немного
     }
@@ -79,6 +80,15 @@ public class TestRozetka {
         srp.clickCompareElement(1);
         srp.clickCompareButtonModalWindow();
         srp.clickCompareButtonRedirect();
+    }
+
+    @Test
+    public void checkInformationInSpecification(){
+        driver.get(rozetkaMainPage);
+        homePage = new HomePage(driver);
+        homePage.setSearchField("Процесор");
+        srp = new SearchRessultPage(driver);
+        srp.typeOfSortMinToMax();
     }
 
 
