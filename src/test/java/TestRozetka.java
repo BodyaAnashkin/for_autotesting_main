@@ -1,9 +1,7 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import rozetka.*;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -88,12 +86,18 @@ public class TestRozetka {
         homePage = new HomePage(driver);
         homePage.setSearchField("Процесор");
         srp = new SearchRessultPage(driver);
-        srp.typeOfSortMinToMax();
+        srp.typeOfSortMaxToMin();
+        srp = new SearchRessultPage(driver);
+        srp.clickSelectElementByTitle("7950");
+        productPage = new ProductPage(driver);
+        productPage.clickButtonCharacter();
+        productPage.searchValueCharacter("4200 МГц");
     }
-
 
     @AfterClass
-    public void brauserClose(){
-       // driver.quit();
+    public void closerBrowser(){
+        //driver.quit();
     }
+
+
 }

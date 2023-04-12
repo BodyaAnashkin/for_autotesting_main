@@ -31,11 +31,12 @@ public class SearchRessultPage extends BasePage {
     @FindBy(className = "comparison-modal__link")
     private WebElement compareButtonRedirect;
 
-    Select selectSorts = new Select(driver.findElement(By.className("select-css")));
+    Select selectSorts;
 
     public SearchRessultPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
+        selectSorts = new Select(driver.findElement(By.className("select-css")));
     }
 
     public String getFirstElementTitle(){
@@ -54,6 +55,17 @@ public class SearchRessultPage extends BasePage {
             }
             catch (NoSuchElementException ignore) {}
             }
+    }
+
+    public void clickSelectElementByTitle(String titleName){
+        for (WebElement filterElement : searchResultName) { // перебираем каждый элемент фильтрации
+            String text = filterElement.getText();
+            if (text.contains(titleName))
+            { // если текст элемента соответствует переданному названию, то нажимаем на него
+                filterElement.click();
+                break;
+            }
+        }
     }
 
     public void clickSelectedElement(int numElement){
