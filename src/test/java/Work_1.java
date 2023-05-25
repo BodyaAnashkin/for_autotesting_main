@@ -61,7 +61,7 @@ public class Work_1 {
     @AfterClass
     public void endTest(){
         // закрытие браузера
-        //driver.quit();
+        driver.quit();
     }
 
 }

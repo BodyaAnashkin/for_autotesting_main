@@ -22,7 +22,7 @@ import java.io.IOException;
             File srcFile = screenshot.getScreenshotAs(OutputType.FILE);
 
             // указываем путь к файлу, в который нужно сохранить скриншот
-            String filePath = "C:/src/tss/work_1/lab-1-main/lab-1-main/test/" + nameScreen;
+            String filePath = "C:/src/tss/work_1/lab-1-main/lab-1-main/test" + nameScreen;
 
             // копируем скриншот в указанный файл
             FileUtils.copyFile(srcFile, new File(filePath));
