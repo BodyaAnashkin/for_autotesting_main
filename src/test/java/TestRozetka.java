@@ -96,7 +96,7 @@ public class TestRozetka {
 
     @AfterClass
     public void closerBrowser(){
-        //driver.quit();
+        driver.quit();
     }
 
 
