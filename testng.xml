@@ -2,10 +2,9 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="All Test Suite">
-    <test verbose="2" preserve-order="true" name="C:\src\tss\Test_Folder">
+    <test verbose="2" preserve-order="true" name="TestRozetka">
         <classes>
-            <class name="Testbytesting"/>
-            <class name="BuyMonitorInRozetka"/>
+            <class name="TestRozetka"/>
         </classes>
     </test>
 </suite>
